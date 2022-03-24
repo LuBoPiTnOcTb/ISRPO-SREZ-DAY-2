@@ -1,0 +1,90 @@
+﻿<Window x:Class="SalaryShop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SalaryShop"
+        mc:Ignorable="d"
+        Title="" Height="700" Width="1200">
+    <Grid Background="#fff5f5 ">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="1140*"/>
+            <ColumnDefinition Width="27*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="66*"/>
+            <RowDefinition Height="270*"/>
+            <RowDefinition Height="286*"/>
+            <RowDefinition Height="12*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <StackPanel>
+                <TextBlock Text="Дата начала" FontSize="17" Margin="0 0 0 10"/>
+                <DatePicker Name="dpStart" Width="220"/>
+            </StackPanel>
+            <StackPanel Margin="90 0 0 0 ">
+                <TextBlock Text="Дата окончания" FontSize="17" Margin="0 0 0 10"/>
+                <DatePicker Name="dpEnd" Width="220"/>
+            </StackPanel>
+            <Button x:Name="btnPut" Content="Получить" Height="30" Width="120" Margin="60 0 0 0" Background="#fea6a6" Click="btnPut_Click"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+            <DataGrid x:Name="Dg1" Width="800" Margin="5" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Client.LastName}" Header="Фамилия"/>
+                    <DataGridTextColumn Binding="{Binding Client.FirstName}" Header="Имя"/>
+                    <DataGridTextColumn Binding="{Binding Client.Patronymic}" Header="Отчество"/>
+                    <DataGridTextColumn Binding="{Binding DateSale, StringFormat=dd.MM.yyy}" Header="Дата продажи"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DataGrid ItemsSource="{Binding Telephones}" AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Articul}" Header="Артикул"/>
+                                        <DataGridTextColumn Binding="{Binding Category}" Header="Категория"/>
+                                        <DataGridTextColumn Binding="{Binding Cost}" Header="Стоимость"/>
+                                        <DataGridTextColumn Binding="{Binding Count}" Header="Кол-во"/>
+                                        <DataGridTextColumn Binding="{Binding Manufacturer}" Header="Производитель"/>
+                                        <DataGridTextColumn Binding="{Binding NameTelephone}" Header="Марка"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Width="220">
+                <TextBlock Text="Сформировать чек" TextAlignment="Center"/>
+                <Border BorderBrush="Black" BorderThickness="1" Height="60" Background="White">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Click="BtnWordChek_Click" x:Name="BtnWordChek">
+                            <Image Source="WordIcon.png" Width="110"/>
+                        </Button>
+                        <Button Click="BtnExcelChek_Click"  x:Name="BtnExcelChek">
+                            <Image Source="ExcelIcon.png" Width="110"/>
+                        </Button>
+                    </StackPanel>
+                </Border>
+                <TextBlock Text="Сформировать отчетность" TextAlignment="Center" Margin="0 30 0 0"/>
+                <Border BorderBrush="Black" BorderThickness="1" Height="60" Background="White">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="WordIcon.png" Width="110"/>
+                        <Image Source="ExcelIcon.png" Width="110"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+        <ComboBox Name="cbGraf" Grid.Column="1" Grid.Row="3" Height="30" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 20 0 0" SelectionChanged="cbGraf_SelectionChanged">
+            <ComboBoxItem Content="Фирмы"/>
+            <ComboBoxItem Content="Продажи"/>
+        </ComboBox>
+        <Border Grid.Column="1" Grid.Row="3" Width="600" BorderBrush="Black" BorderThickness="1" Margin="141,0,399,0">
+            <WpfPlot x:Name="SpGraf" IsEnabled="False">
+
+            </WpfPlot>
+        </Border>
+        <Image Grid.Column="1" Grid.Row="3" Width="400" Height="210" Margin="0,0,300,12" x:Name="photograf" Source="Графики.png"/>
+    </Grid>
+</Window>
